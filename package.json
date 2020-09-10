@@ -27,7 +27,6 @@
     "hash-sum": "^1.0.2",
     "json5": "^0.5.1",
     "lru-cache": "^4.0.0",
-    "object-assign": "^4.0.1",
     "postcss": "^5.0.10",
     "postcss-selector-parser": "^2.0.0",
     "source-map": "^0.5.6",
