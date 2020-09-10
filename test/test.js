@@ -9,6 +9,7 @@ const browserify = require('browserify')
 const vueify = require('../index')
 const jsdom = require('jsdom')
 const vueCompiler = require('vue-template-compiler')
+const { transform } = require('@babel/core')
 const genId = require('../lib/gen-id')
 
 const tempDir = path.resolve(__dirname, './temp')
@@ -50,7 +51,10 @@ function testCssExtract (file, assert) {
 
 function assertRenderFn (options, template) {
   const compiled = vueCompiler.compile(template)
-  expect(options.render.toString()).to.equal(`function render() {${compiled.render}}`)
+  expect(options.render.toString()).to.equal(transform((`function render() {${compiled.render}}`), {
+    parserOpts: { sourceType: "script" },
+    plugins: ["@babel/plugin-transform-modules-commonjs"]
+  }).code)
 }
 
 describe('vueify', () => {
